@@ -85,12 +85,15 @@ namespace HotelBooking.Specs.Features
         [Xunit.TraitAttribute("FeatureTitle", "CreateBooking")]
         [Xunit.TraitAttribute("Description", "CreateBooking valid inputs")]
         [Xunit.TraitAttribute("Category", "CreateBookingValidInputs")]
+        [Xunit.InlineDataAttribute("1", "1", "true", "# room available", new string[0])]
         [Xunit.InlineDataAttribute("3", "3", "true", "# room available", new string[0])]
         [Xunit.InlineDataAttribute("3", "4", "false", "# room not available on enddate", new string[0])]
         [Xunit.InlineDataAttribute("4", "4", "false", "# room not available", new string[0])]
+        [Xunit.InlineDataAttribute("11", "11", "false", "# room not available", new string[0])]
         [Xunit.InlineDataAttribute("18", "18", "false", "# room not available", new string[0])]
         [Xunit.InlineDataAttribute("18", "19", "false", "# room not available on startdate", new string[0])]
         [Xunit.InlineDataAttribute("19", "19", "true", "# room available", new string[0])]
+        [Xunit.InlineDataAttribute("25", "25", "true", "# room available", new string[0])]
         public virtual void CreateBookingValidInputs(string startDateOffset, string endDateOffset, string created, string comments, string[] exampleTags)
         {
             string[] @__tags = new string[] {

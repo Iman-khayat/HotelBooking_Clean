@@ -11,11 +11,15 @@ Scenario Outline: CreateBooking valid inputs
 
 Examples: 
     | StartDateOffset | EndDateOffset | Created         | # Comments                                      |
+    | 1               | 1             | true            | # room available                                |
     | 3               | 3             | true            | # room available                                |
     | 3               | 4             | false           | # room not available on enddate                 |
     | 4               | 4             | false           | # room not available                            |
+    | 11              | 11            | false           | # room not available                            |
     | 18              | 18            | false           | # room not available                            |
     | 18              | 19            | false           | # room not available on startdate               |
     | 19              | 19            | true            | # room available                                |
+    | 25              | 25            | true            | # room available                                |
 
 # BVT: Boundary value testing
+# ECT: Equivalence class testing
