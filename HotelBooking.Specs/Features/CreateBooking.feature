@@ -17,3 +17,5 @@ Examples:
     | 18              | 18            | false           | # room not available                            |
     | 18              | 19            | false           | # room not available on startdate               |
     | 19              | 19            | true            | # room available                                |
+
+# BVT: Boundary value testing

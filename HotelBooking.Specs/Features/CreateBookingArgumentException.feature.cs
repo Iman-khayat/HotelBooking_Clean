@@ -86,6 +86,7 @@ namespace HotelBooking.Specs.Features
         [Xunit.TraitAttribute("Description", "CreateBooking throw ArgumentException")]
         [Xunit.TraitAttribute("Category", "CreateBookingArgumentException")]
         [Xunit.InlineDataAttribute("-1", "-1", "false", "# cannot book a room in the past", new string[0])]
+        [Xunit.InlineDataAttribute("0", "1", "false", "# cannot book a room in the past (ECT: mixing valid and invalid inputs", new string[0])]
         [Xunit.InlineDataAttribute("0", "0", "false", "# cannot book a room today", new string[0])]
         [Xunit.InlineDataAttribute("2", "1", "false", "# StartDate must be earlier or equal to Enddate", new string[0])]
         public virtual void CreateBookingThrowArgumentException(string startDateOffset, string endDateOffset, string created, string comments, string[] exampleTags)

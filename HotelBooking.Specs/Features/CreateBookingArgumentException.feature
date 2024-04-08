@@ -14,5 +14,9 @@ The customer John Smith can not create a booking in the past, today or having St
 Examples: 
     | StartDateOffset | EndDateOffset | Created         | # Comments                                      |
     | -1              | -1            | false           | # cannot book a room in the past                |
+    | 0               | 1             | false           | # cannot book a room in the past (ECT: mixing valid and invalid inputs |
     | 0               | 0             | false           | # cannot book a room today                      |
     | 2               | 1             | false           | # StartDate must be earlier or equal to Enddate |
+
+# BVT: boundary value testing
+# ECT: equivalence class testing
