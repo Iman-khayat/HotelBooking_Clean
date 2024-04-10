@@ -18,5 +18,5 @@ Examples:
     | 0               | 0             | false           | # cannot book a room today                      |
     | 2               | 1             | false           | # StartDate must be earlier or equal to Enddate |
 
-# BVT: boundary value testing
+# BVT: boundary value testing - see HotelBooking.Specs/Features/CreateBooking.feature
 # ECT: equivalence class testing

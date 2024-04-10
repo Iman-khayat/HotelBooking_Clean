@@ -31,3 +31,14 @@ Examples:
 #       class 1: StartDateOffset = 1, EndDateOffset = 3, i.e. the period from tomorrow until 3 days ahead where can book and room is free
 #       class 2: StartDateOffset = 4, EndDateOffset = 18, i.e. the period where room is not available
 #       class 3: period after class 2 where room is available
+
+# Remarks from Henrik:
+# 1) StartDate and Enddate are not independent so should use decision table to derive test cases - then code them.
+# Write decision-table in e.g. excel.
+#
+# 2) Make naming of CreateBookingArguementException more userfriendly for non-developers, i.e. as example
+# Change from                                   To
+# Feature: CreateBookingArgumentException       Feature: CreateBookingInvalidInputs
+# Then an ArgumentException is thrown           Then an error occurs
+#
+# in HotelBooking.Specs/Features/CreateBookingArgmentException
