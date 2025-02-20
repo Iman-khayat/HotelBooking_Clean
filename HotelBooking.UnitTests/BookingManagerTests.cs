@@ -14,12 +14,17 @@ namespace HotelBooking.UnitTests
         private IBookingManager bookingManager;
         IRepository<Booking> bookingRepository;
 
-        public BookingManagerTests(){
+
+
+
+        public BookingManagerTests()
+        {
             DateTime start = DateTime.Today.AddDays(10);
             DateTime end = DateTime.Today.AddDays(20);
             bookingRepository = new FakeBookingRepository(start, end);
             IRepository<Room> roomRepository = new FakeRoomRepository();
             bookingManager = new BookingManager(bookingRepository, roomRepository);
+
         }
 
         [Fact]
@@ -54,7 +59,11 @@ namespace HotelBooking.UnitTests
 
             // Arrange
             DateTime date = DateTime.Today.AddDays(1);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 8bc300c804747871c1cffc00ab7acbfc8f71e9d6
             // Act
             int roomId = bookingManager.FindAvailableRoom(date, date);
 
@@ -63,7 +72,11 @@ namespace HotelBooking.UnitTests
                 && b.StartDate <= date
                 && b.EndDate >= date
                 && b.IsActive);
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 8bc300c804747871c1cffc00ab7acbfc8f71e9d6
             // Assert
             Assert.Empty(bookingForReturnedRoomId);
         } 
@@ -77,6 +90,7 @@ namespace HotelBooking.UnitTests
             var mockBookingRepository = new Mock<IRepository<Booking>>();
             var mockRoomRepository = new Mock<IRepository<Room>>();
 
+<<<<<<< HEAD
             // Setup RoomRepository mock based on roomId
             var rooms = new List<Room>();
             if (roomId > 0)
@@ -117,11 +131,17 @@ namespace HotelBooking.UnitTests
         [InlineData(1, 1)] // One booking, room available
         [InlineData(1, 2)] // Two bookings, one room
         public void FindAvailableRoom_DataDriven_ReturnsExpectedRoomId(int totalRooms, int activeBookings)
+=======
+
+        [Fact]
+        public void CreateBooking_AvailableRoom_BookingCreated()
+>>>>>>> 8bc300c804747871c1cffc00ab7acbfc8f71e9d6
         {
             // Arrange
             var mockBookingRepository = new Mock<IRepository<Booking>>();
             var mockRoomRepository = new Mock<IRepository<Room>>();
 
+<<<<<<< HEAD
             var rooms = Enumerable.Range(1, totalRooms).Select(i => new Room { Id = i }).ToList();
             mockRoomRepository.Setup(r => r.GetAll()).Returns(rooms);
 
@@ -192,5 +212,78 @@ namespace HotelBooking.UnitTests
             Assert.Contains(date, occupiedDates);
         }
     }
+=======
+
+            mockRoomRepository.Setup(r => r.GetAll()).Returns(GetRooms(2)); // Simulate 2 available rooms
+
+            BookingManager manager = new BookingManager(mockBookingRepository.Object, mockRoomRepository.Object);
+            Booking booking = new Booking { StartDate = DateTime.Today.AddDays(2), EndDate = DateTime.Today.AddDays(5) };
+
+            // Act
+            bool bookingCreated = manager.CreateBooking(booking);
+
+            // Assert
+            Assert.True(bookingCreated);
+            mockBookingRepository.Verify(r => r.Add(booking), Times.Once); // Verify booking is added
+        }
+        [Fact]
+        public void CreateBooking_AvailableRoom_ReturnsTrueAndSetsBookingProperties()
+        {
+            // Arrange
+            var mockBookingRepository = new Mock<IRepository<Booking>>();
+            var mockRoomRepository = new Mock<IRepository<Room>>();
+            int availableRoomId = 10;
+            mockRoomRepository.Setup(r => r.GetAll()).Returns(GetRooms(2)); // 2 rooms
+            mockBookingRepository.Setup(r => r.GetAll()).Returns(new List<Booking>()); // No existing bookings
+            Booking booking = new Booking { StartDate = DateTime.Today.AddDays(1), EndDate = DateTime.Today.AddDays(5) };
+
+            BookingManager manager = new BookingManager(mockBookingRepository.Object, mockRoomRepository.Object);
+
+            // Act
+            bool bookingCreated = manager.CreateBooking(booking);
+
+            // Assert
+            Assert.True(bookingCreated);
+            Assert.Equal(availableRoomId, booking.RoomId);
+            Assert.True(booking.IsActive);
+            mockBookingRepository.Verify(r => r.Add(booking), Times.Once);
+        }
+        [Fact]
+        public void CreateBooking_NoAvailableRoom_ReturnsFalse()
+        {
+            // Arrange
+            var mockBookingRepository = new Mock<IRepository<Booking>>();
+            var mockRoomRepository = new Mock<IRepository<Room>>();
+            mockRoomRepository.Setup(r => r.GetAll()).Returns(GetRooms(1)); // 1 room
+            mockBookingRepository.Setup(r => r.GetAll()).Returns(GetBookings(new Booking { StartDate = DateTime.Today.AddDays(1), EndDate = DateTime.Today.AddDays(5) })); // Existing booking for the same period
+
+            Booking booking = new Booking { StartDate = DateTime.Today.AddDays(1), EndDate = DateTime.Today.AddDays(5) };
+
+            BookingManager manager = new BookingManager(mockBookingRepository.Object, mockRoomRepository.Object);
+
+            // Act
+            bool bookingCreated = manager.CreateBooking(booking);
+
+            // Assert
+            Assert.False(bookingCreated);
+            mockBookingRepository.Verify(r => r.Add(booking), Times.Never);
+        }
+
+        public IEnumerable<Room> GetRooms(int noOfRooms)
+        {
+            List<Room> rooms = new List<Room>();
+            for (int i = 0; i < noOfRooms; i++)
+            {
+                rooms.Add(new Room { Id = i + 1 }); // Assign unique IDs
+            }
+            return rooms;
+        }
+
+        private List<Booking> GetBookings(Booking booking)
+        {
+            return new List<Booking>() { booking };
+        }
+
+>>>>>>> 8bc300c804747871c1cffc00ab7acbfc8f71e9d6
     }
 }
