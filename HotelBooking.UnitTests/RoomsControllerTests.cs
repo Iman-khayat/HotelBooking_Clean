@@ -29,19 +29,19 @@ namespace HotelBooking.UnitTests
 
 
             // Implement fake Get() method.
-            //fakeRoomRepository.Setup(x => x.Get(2)).Returns(rooms[1]);
+            fakeRoomRepository.Setup(x => x.Get(2)).Returns(rooms[1]);
 
 
             // Alternative setup with argument matchers:
 
             // Any integer:
-            //fakeRoomRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(rooms[1]);
+            fakeRoomRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(rooms[1]);
 
             // Integers from 1 to 2 (using a predicate)
             // If the fake Get is called with an another argument value than 1 or 2,
             // it returns null, which corresponds to the behavior of the real
             // repository's Get method.
-            //fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
+            fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
 
             // Integers from 1 to 2 (using a range)
             fakeRoomRepository.Setup(x =>
